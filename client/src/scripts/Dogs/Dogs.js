@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { getDogs } from "../apiManager";
-import { useNavigate } from "react-router-dom";
+import { getDogs } from "../../apiManager";
+import { Link } from "react-router-dom";
+
 const dogs = await getDogs();
 
 export const Dogs = () => {
     const [dogs, setDogs] = useState([])
-    const navigate = useNavigate();
 
     const getAllDogs = async () => {
         const fetchedDogs = await getDogs()
@@ -23,7 +23,7 @@ export const Dogs = () => {
                 <div className="container allDogs-container">
                     {dogs.map((dog) => {
                         return <h3 className="dog" id="${dog.Id}">
-                            {dog.name}
+                            <Link to={`/dogs/${dog.id}`}>{dog.name}</Link>
                         </h3>
                     })}
                 </div>
