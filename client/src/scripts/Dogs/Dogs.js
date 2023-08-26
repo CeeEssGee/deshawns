@@ -23,7 +23,7 @@ export const Dogs = () => {
                 <div className="container allDogs-container">
                     {dogs.map((dog) => {
                         return <h3 className="dog" key={`dog--${dog.id}`}>
-                            < Link to={`/dogs/${dog.id}`}><Link to={`/dogs/${dog.id}`}>{dog.name}</Link></Link>
+                            < Link to={`/dogs/${dog.id}`}>{dog.name}</Link>
                         </h3>
                     })}
                 </div >

@@ -4,16 +4,16 @@ import { useParams } from "react-router-dom";
 
 export const DogDetails = () => {
     const { dogId } = useParams()
-    const [singleDog, setSingleDog] = useState({}) // returning a single object, so using curly braces instead of brackets
-
-    const getDetails = async () => {
-        const fetchedDog = await getDogDetails({ dogId })
-        setSingleDog(fetchedDog)
-    }
+    const [singleDog, setSingleDog] = useState([])
 
     useEffect(() => {
-        getDetails()
-    }, [])
+        getDogDetails({ dogId })
+            .then(response => response.json())
+            .then((data) => {
+                const singleDog = data[0]
+                setSingleDog(singleDog)
+            })
+    }, [dogId])
 
     return (
         <>

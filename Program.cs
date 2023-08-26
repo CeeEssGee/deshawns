@@ -194,47 +194,42 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Welcome message
 app.MapGet("/api/hello", () =>
 {
     return new { Message = "Welcome to DeShawn's Dog Walking" };
 });
 
+// Get all dogs
 app.MapGet("/api/home", () =>
 {
     return dogs;
 });
 
+// Get dog by Id
 app.MapGet("/api/dogs/{id}", (int id) =>
 {
     Dog chosenDog = dogs.FirstOrDefault(d => d.Id == id);
 
-    City chosenDogCity = cities.FirstOrDefault(c => c.Id == chosenDog.CityId);
+    // City chosenDogCity = cities.FirstOrDefault(c => c.Id == chosenDog.CityId);
 
     // need to add walkers (if any)
 
-    chosenDog.City = chosenDogCity;
-
-    return chosenDog;
+    // chosenDog.City = chosenDogCity;
+    if (chosenDog == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(chosenDog);
 });
 
+// Get all cities
 app.MapGet("/api/cities", () =>
 {
     return cities;
 });
 
-app.MapGet("/api/dogs/{id}", (int id) =>
-{
-    Dog chosenDog = dogs.FirstOrDefault(d => d.Id == id);
-
-    City chosenDogCity = cities.FirstOrDefault(c => c.Id == chosenDog.CityId);
-
-    // need to add walkers (if any)
-
-    chosenDog.City = chosenDogCity;
-
-    return chosenDog;
-});
-
+// Add city
 app.MapPost("/api/cities", (City city) =>
 {
     city.Id = cities.Count > 0 ? cities.Max(c => c.Id) + 1 : 1;
