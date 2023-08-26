@@ -22,12 +22,12 @@ export const Dogs = () => {
                 <h2 className="heading allDogs-heading">All Dogs:</h2>
                 <div className="container allDogs-container">
                     {dogs.map((dog) => {
-                        return <h3 className="dog" id="${dog.Id}">
-                            <Link to={`/dogs/${dog.id}`}>{dog.name}</Link>
+                        return <h3 className="dog" key={`dog--${dog.id}`}>
+                            < Link to={`/dogs/${dog.id}`}><Link to={`/dogs/${dog.id}`}>{dog.name}</Link></Link>
                         </h3>
                     })}
-                </div>
-            </div>
+                </div >
+            </div >
         </>
     )
 };
