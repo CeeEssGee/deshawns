@@ -38,6 +38,21 @@ List<City> cities = new List<City>()
     {
         Id = 7,
         Name = "Middleburg"
+    },
+    new City()
+    {
+        Id = 5,
+        Name = "Fernandina Beach"
+    },
+    new City()
+    {
+        Id = 6,
+        Name = "Ponte Vedra Beach"
+    },
+    new City()
+    {
+        Id = 7,
+        Name = "Middleburg"
     }
 };
 
@@ -70,12 +85,6 @@ List<Dog> dogs = new List<Dog>()
         Name = "Elvis",
         WalkerId = 9,
         CityId = 3
-    },
-    new Dog()
-    {
-        Id = 5,
-        Name = "Dolly",
-        CityId = 4
     },
     new Dog()
     {
@@ -193,6 +202,19 @@ app.MapGet("/api/hello", () =>
 app.MapGet("/api/home", () =>
 {
     return dogs;
+});
+
+app.MapGet("/api/dogs/{id}", (int id) =>
+{
+    Dog chosenDog = dogs.FirstOrDefault(d => d.Id == id);
+
+    City chosenDogCity = cities.FirstOrDefault(c => c.Id == chosenDog.CityId);
+
+    // need to add walkers (if any)
+
+    chosenDog.City = chosenDogCity;
+
+    return chosenDog;
 });
 
 app.MapGet("/api/cities", () =>

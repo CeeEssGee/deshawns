@@ -18,6 +18,7 @@ export default function Home() {
   return (
     <>
       <p>{greeting.message}</p>
+      {/* imports list of dogs */}
       <Dogs />
     </>
   )

@@ -22,3 +22,8 @@ export const postCity = async (cityObject) => {
     body: JSON.stringify(cityObject)
   });
 };
+
+export const getDogDetails = async () => {
+  const res = await fetch("/api/dogs/{id}");
+  return res.json();
+};

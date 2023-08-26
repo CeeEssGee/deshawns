@@ -17,6 +17,9 @@ function App() {
             <NavItem>
               <NavLink href="/cities">Cities</NavLink>
             </NavItem>
+            {/* <NavItem>
+              <NavLink href="/cities">Cities</NavLink>
+            </NavItem> */}
           </Nav>
         </Navbar>
         <Outlet />
