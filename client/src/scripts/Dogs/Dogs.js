@@ -1,24 +1,48 @@
 import { useEffect, useState } from "react";
-import { getDogs } from "../../apiManager";
-import { Link } from "react-router-dom";
+import { getCities, getDogs, postDog } from "../../apiManager";
+import { Link, useNavigate } from "react-router-dom";
 
 const dogs = await getDogs();
 
 export const Dogs = () => {
+    const navigate = useNavigate()
     const [dogs, setDogs] = useState([])
+    const [dog, updateDog] = useState({
+        name: "",
+        cityId: 0,
+        walkerId: 0
+    })
+    const [cities, setCities] = useState([])
 
     const getAllDogs = async () => {
         const fetchedDogs = await getDogs()
         setDogs(fetchedDogs)
     }
 
+    const getAllCities = async () => {
+        const fetchedCities = await getCities()
+        setCities(fetchedCities)
+    }
+
     useEffect(() => {
         getAllDogs()
     }, [])
 
+    const handleAddButtonClick = (evt) => {
+        navigate(`/dogs/add`)
+    }
+
+
     return (
         <>
+            {/* Add a dog */}
+            <div className="addDog">
+                <button className="addDogButton" onClick={(evt) => {
+                    handleAddButtonClick()
+                }}>Add Dog</button>
 
+                {/* Need a popup form? for adding a dog? */}
+            </div>
 
 
             {/* Dog list */}
