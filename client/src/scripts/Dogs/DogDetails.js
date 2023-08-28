@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 export const DogDetails = () => {
     const { dogId } = useParams()
-    const [singleDog, setSingleDog] = useState({}) // returning a single object, so using curly braces instead of brackets
+    const [singleDog, setSingleDog] = useState({})
 
     const getDetails = async () => {
         const fetchedDog = await getDogDetails(parseInt(dogId))
