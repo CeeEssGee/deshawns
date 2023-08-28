@@ -73,6 +73,13 @@ List<Dog> dogs = new List<Dog>()
     },
     new Dog()
     {
+        Id = 5,
+        Name = "Lucky",
+        WalkerId = 5,
+        CityId = 5
+    },
+    new Dog()
+    {
         Id = 6,
         Name = "Rocket",
         CityId = 7
@@ -211,18 +218,29 @@ app.MapGet("/api/home", () =>
     return dogs;
 });
 
+// Add a dog
+// app.MapPost("/api/dogs", (Dog dog) =>
+// {
+//     dog.Id = dogs.Count > 0 ? dogs.Max(d => d.Id) + 1 : 1;
+
+//     dog.CityId = 0; // temporarily assigning dog to CityId of 0, try to give them a dropdown on front end to select city
+//     dog.WalkerId = 0;
+//     dogs.Add(dog);
+//     return dog;
+// });
+
 // single dog details
 app.MapGet("/api/dogs/{id}", (int id) =>
 {
-    Dog chosenDog = dogs.FirstOrDefault(d => d.Id == id);
+    Dog dog = dogs.FirstOrDefault(d => d.Id == id);
 
-    City chosenDogCity = cities.FirstOrDefault(c => c.Id == chosenDog.CityId);
-    Walker chosenDogWalker = walkers.FirstOrDefault(w => w.Id == chosenDog.WalkerId);
+    City chosenDogCity = cities.FirstOrDefault(c => c.Id == dog.CityId);
+    Walker chosenDogWalker = walkers.FirstOrDefault(w => w.Id == dog.WalkerId);
 
-    chosenDog.City = chosenDogCity;
-    chosenDog.Walker = chosenDogWalker;
+    dog.City = chosenDogCity;
+    dog.Walker = chosenDogWalker;
 
-    return Results.Ok(chosenDog);
+    return Results.Ok(dog);
 });
 
 // list of cities

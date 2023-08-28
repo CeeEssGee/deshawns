@@ -9,7 +9,7 @@ export const getDogs = async () => {
 };
 
 export const getDogDetails = async (id) => {
-  const res = await fetch(`/api/dogs/{id}`);
+  const res = await fetch(`/api/dogs/${id}`);
   return res.json();
 };
 
@@ -19,7 +19,7 @@ export const getCities = async () => {
 };
 
 export const getFilteredCity = async (id) => {
-  const res = await fetch(`/api/cities/{id}`);
+  const res = await fetch(`/api/cities/${id}`);
   return res.json();
 }
 
