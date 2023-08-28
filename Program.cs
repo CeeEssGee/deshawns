@@ -38,21 +38,6 @@ List<City> cities = new List<City>()
     {
         Id = 7,
         Name = "Middleburg"
-    },
-    new City()
-    {
-        Id = 5,
-        Name = "Fernandina Beach"
-    },
-    new City()
-    {
-        Id = 6,
-        Name = "Ponte Vedra Beach"
-    },
-    new City()
-    {
-        Id = 7,
-        Name = "Middleburg"
     }
 };
 
@@ -177,6 +162,27 @@ List<Walker> walkers = new List<Walker>()
         Name = "Tiffanie"
     }
 };
+List<WalkerCity> walkerCities = new List<WalkerCity>()
+{
+    new WalkerCity()
+    {
+        Id = 1,
+        WalkerId = 1,
+        CityId = 1
+    },
+    new WalkerCity()
+    {
+        Id = 2,
+        WalkerId = 8,
+        CityId = 2
+    },
+    new WalkerCity()
+    {
+        Id = 3,
+        WalkerId = 9,
+        CityId = 3
+    }
+};
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -199,47 +205,65 @@ app.MapGet("/api/hello", () =>
     return new { Message = "Welcome to DeShawn's Dog Walking" };
 });
 
+// list of dogs
 app.MapGet("/api/home", () =>
 {
     return dogs;
 });
 
+// single dog details
 app.MapGet("/api/dogs/{id}", (int id) =>
 {
     Dog chosenDog = dogs.FirstOrDefault(d => d.Id == id);
 
     City chosenDogCity = cities.FirstOrDefault(c => c.Id == chosenDog.CityId);
-
-    // need to add walkers (if any)
+    Walker chosenDogWalker = walkers.FirstOrDefault(w => w.Id == chosenDog.WalkerId);
 
     chosenDog.City = chosenDogCity;
+    chosenDog.Walker = chosenDogWalker;
 
-    return chosenDog;
+    return Results.Ok(chosenDog);
 });
 
+// list of cities
 app.MapGet("/api/cities", () =>
 {
     return cities;
 });
 
-app.MapGet("/api/dogs/{id}", (int id) =>
+app.MapGet("/api/cities/{id}", (int id) =>
 {
-    Dog chosenDog = dogs.FirstOrDefault(d => d.Id == id);
+    City chosenCity = cities.FirstOrDefault(c => c.Id == id);
+    if (chosenCity == null)
+    {
+        return Results.NotFound();
+    }
+    if (id != chosenCity.Id)
+    {
+        return Results.BadRequest();
+    }
 
-    City chosenDogCity = cities.FirstOrDefault(c => c.Id == chosenDog.CityId);
-
-    // need to add walkers (if any)
-
-    chosenDog.City = chosenDogCity;
-
-    return chosenDog;
+    return Results.Ok(chosenCity);
 });
 
+// add a city
 app.MapPost("/api/cities", (City city) =>
 {
     city.Id = cities.Count > 0 ? cities.Max(c => c.Id) + 1 : 1;
     cities.Add(city);
     return city;
+});
+
+// list of walkers
+app.MapGet("/api/walkers", () =>
+{
+    return walkers;
+});
+
+// WalkerCities
+app.MapGet("/api/walkercities", () =>
+{
+    return walkerCities;
 });
 
 app.Run();
