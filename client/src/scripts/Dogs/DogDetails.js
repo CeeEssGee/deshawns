@@ -7,7 +7,7 @@ export const DogDetails = () => {
     const [singleDog, setSingleDog] = useState({}) // returning a single object, so using curly braces instead of brackets
 
     const getDetails = async () => {
-        const fetchedDog = await getDogDetails({ dogId })
+        const fetchedDog = await getDogDetails(parseInt(dogId))
         setSingleDog(fetchedDog)
     }
 
@@ -22,6 +22,7 @@ export const DogDetails = () => {
                 <div className="container">
                     <div>Name: {singleDog?.name}</div>
                     <div>City: {singleDog?.city?.name}</div>
+                    <div>Walker: {singleDog?.walker?.name}</div>
                 </div>
             </div>
         </>

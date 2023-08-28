@@ -18,6 +18,10 @@ export const Dogs = () => {
 
     return (
         <>
+
+
+
+            {/* Dog list */}
             <div className="allDogs">
                 <h2 className="heading allDogs-heading">Dogs:</h2>
                 <div className="container allDogs-container">
