@@ -6,41 +6,52 @@ export const Walkers = () => {
     const [walkers, setWalkers] = useState([])
     const [cities, setCities] = useState([])
     const [filteredWalkers, setFilteredWalkers] = useState([])
+    const [walkerCities, setWalkerCities] = useState([])
     const [filteredCity, setFilteredCity] = useState("");
 
-    const getAllWalkers = async () => {
-        const fetchedWalkers = await getWalkers()
-        setWalkers(fetchedWalkers)
-    }
-
-    const getAllCities = async () => {
-        const fetchedCities = await getCities()
-        setCities(fetchedCities)
-    }
-
-    const getFilteredCity = async () => {
-        const fetchFiltered = await getFilteredCity()
-        setFilteredCity(fetchFiltered)
-    }
-
     useEffect(() => {
-        getAllWalkers()
-        getAllCities()
-    }, [])
+        getWalkers()
+            .then((data) => {
+                setWalkers(data)
+            })
+        getCities()
+            .then((data) => {
+                setCities(data)
+            })
+        getWalkerCities()
+            .then((data) => {
+                setWalkerCities(data)
+            })
+    }, []);
 
-    useEffect(
-        () => {
-            setFilteredCity(cities)
-        },
-        [cities]
-    )
+    // useEffect(
+    //     () => {
+    //         setFilteredCity(cities)
+    //     },
+    //     [cities]
+    // )
 
     const handleSelectChange = (evt) => {
         setFilteredCity(evt.target.value)
-        getWalkerCities(evt.target.value)
-            .then((data) => {
-                setFilteredWalkers(data)
+        taco(evt.target.value)
+    }
+
+    const taco = (cityId) => {
+        let filteredWalkerCities = []
+        walkerCities.map((wc) => {
+            if (wc.cityId == cityId) {
+                filteredWalkerCities.push(wc)
+            }
+        })
+        let filteredWalkers = []
+        for (const walker of walkers) {
+            filteredWalkerCities.map((fwc) => {
+                if (fwc.walkerId == walker.id) {
+                    filteredWalkers.push(walker)
+                }
             })
+        }
+        setFilteredWalkers(filteredWalkers)
     }
 
     return (
@@ -61,19 +72,17 @@ export const Walkers = () => {
             {
                 filteredCity ? filteredWalkers.map((walker) => {
                     return <h3 className="walker" key={`walker--${walker.id}`}>{walker.name}</h3>
-                }) : ""
+                }) : <div className="allWalkers">
+                    <h2 className="heading allWalkers-heading">Walkers:</h2>
+                    <div className="container allWalkers-container">
+                        {walkers.map((walker) => {
+                            return <h3 className="walker" key={`walker--${walker.id}`}>{walker.name}
+                            </h3>
+                        })}
+                    </div>
+                </div>
             }
 
-            {/* list of walkers */}
-            <div className="allWalkers">
-                <h2 className="heading allWalkers-heading">Walkers:</h2>
-                <div className="container allWalkers-container">
-                    {walkers.map((walker) => {
-                        return <h3 className="walker" key={`walker--${walker.id}`}>{walker.name}
-                        </h3>
-                    })}
-                </div>
-            </div>
         </>
     )
 }
