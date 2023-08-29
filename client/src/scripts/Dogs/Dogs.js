@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCities, getDogs, postDog } from "../../apiManager";
+import { getCities, getDogs, deleteDog } from "../../apiManager";
 import { Link, useNavigate } from "react-router-dom";
 
 const dogs = await getDogs();
@@ -13,6 +13,7 @@ export const Dogs = () => {
         walkerId: 0
     })
     const [cities, setCities] = useState([])
+    const [selectedDog, deleteSelectedDog] = useState([])
 
     const getAllDogs = async () => {
         const fetchedDogs = await getDogs()
@@ -32,6 +33,13 @@ export const Dogs = () => {
         navigate(`/dogs/add`)
     }
 
+    const handleRemoveButtonClick = (evt) => {
+        // const dogId = dog.id
+        // deleteDog(dogId)
+        // deleteDog(parseInt(dogId))
+        deleteDog(dog.id)
+    }
+
 
     return (
         <>
@@ -40,8 +48,6 @@ export const Dogs = () => {
                 <button className="addDogButton" onClick={(evt) => {
                     handleAddButtonClick()
                 }}>Add Dog</button>
-
-                {/* Need a popup form? for adding a dog? */}
             </div>
 
 
@@ -50,8 +56,11 @@ export const Dogs = () => {
                 <h2 className="heading allDogs-heading">Dogs:</h2>
                 <div className="container allDogs-container">
                     {dogs.map((dog) => {
-                        return <h3 className="dog" key={`dog--${dog.id}`}>
+                        return <h3 className="dog" value={dog.id} key={`dog--${dog.id}`}>
                             <Link to={`/dogs/${dog.id}`}>{dog.name}</Link>
+                            <button className="removeDogButton" value={dog.id} onClick={(evt) => {
+                                handleRemoveButtonClick()
+                            }}>Remove</button>
                         </h3>
                     })}
                 </div >

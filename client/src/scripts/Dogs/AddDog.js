@@ -21,7 +21,6 @@ export const AddDog = () => {
         setCities(fetchedCities)
     }
 
-    // this causes infinite fetches to get all cities
     useEffect(() => {
         getAllCities()
     }, [])
@@ -72,7 +71,7 @@ export const AddDog = () => {
                 </select>
                 <button onClick={(evt) => {
                     handleSaveButtonClick(evt)
-                }}>Save Dog</button>
+                }}>Submit</button>
             </form>
 
         </>

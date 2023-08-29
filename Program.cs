@@ -243,6 +243,13 @@ app.MapGet("/api/dogs/{id}", (int id) =>
     return Results.Ok(dog);
 });
 
+// delete a dog
+app.MapDelete("/api/dogs/{id}", (int id) =>
+{
+    Dog dog = dogs.FirstOrDefault(d => d.Id == id);
+    dogs.Remove(dog);
+});
+
 // list of cities
 app.MapGet("/api/cities", () =>
 {
