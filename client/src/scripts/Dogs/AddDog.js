@@ -8,7 +8,7 @@ const cities = await getCities();
 
 export const AddDog = () => {
     const navigate = useNavigate()
-    const [dogs, setDogs] = useState([])
+    // const [dogs, setDogs] = useState([])
     const [cities, setCities] = useState([])
     const [dog, updateDog] = useState({
         name: "",
@@ -16,19 +16,22 @@ export const AddDog = () => {
         walkerId: 0
     })
 
-    const getAllCities = async () => {
-        const fetchedCities = await getCities()
-        setCities(fetchedCities)
-    }
+    // const getAllCities = async () => {
+    //     const fetchedCities = await getCities()
+    //     setCities(fetchedCities)
+    // }
 
     useEffect(() => {
-        getAllCities()
+        getCities()
+            .then((data) => {
+                setCities(data)
+            })
     }, [])
 
-    const getAllDogs = async () => {
-        const fetchedDogs = await getDogs()
-        setDogs(fetchedDogs)
-    }
+    // const getAllDogs = async () => {
+    //     const fetchedDogs = await getDogs()
+    //     setDogs(fetchedDogs)
+    // }
 
     const handleSaveButtonClick = (evt) => {
         evt.preventDefault()
@@ -41,7 +44,7 @@ export const AddDog = () => {
 
         postDog(dogToSendToAPI)
             .then(() => {
-                getAllDogs()
+                // getAllDogs()
                 navigate(`/`)
             })
     }

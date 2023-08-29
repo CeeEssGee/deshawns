@@ -7,13 +7,8 @@ const dogs = await getDogs();
 export const Dogs = () => {
     const navigate = useNavigate()
     const [dogs, setDogs] = useState([])
-    const [dog, updateDog] = useState({
-        name: "",
-        cityId: 0,
-        walkerId: 0
-    })
     const [cities, setCities] = useState([])
-    const [selectedDog, deleteSelectedDog] = useState([])
+    // const [selectedDog, deleteSelectedDog] = useState([])
 
     const getAllDogs = async () => {
         const fetchedDogs = await getDogs()
@@ -31,13 +26,6 @@ export const Dogs = () => {
 
     const handleAddButtonClick = (evt) => {
         navigate(`/dogs/add`)
-    }
-
-    const handleRemoveButtonClick = (evt) => {
-        // const dogId = dog.id
-        // deleteDog(dogId)
-        // deleteDog(parseInt(dogId))
-        deleteDog(dog.id)
     }
 
 
@@ -58,9 +46,7 @@ export const Dogs = () => {
                     {dogs.map((dog) => {
                         return <h3 className="dog" value={dog.id} key={`dog--${dog.id}`}>
                             <Link to={`/dogs/${dog.id}`}>{dog.name}</Link>
-                            <button className="removeDogButton" value={dog.id} onClick={(evt) => {
-                                handleRemoveButtonClick()
-                            }}>Remove</button>
+                            <button className="removeDogButton" onClick={() => { deleteDog(dog.id).then(() => { getAllDogs() }) }}>Remove</button>
                         </h3>
                     })}
                 </div >

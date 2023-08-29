@@ -223,8 +223,6 @@ app.MapPost("/api/dogs", (Dog dog) =>
 {
     dog.Id = dogs.Count > 0 ? dogs.Max(d => d.Id) + 1 : 1;
 
-    dog.CityId = 0; // temporarily assigning dog to CityId of 0, try to give them a dropdown on front end to select city
-    dog.WalkerId = 0;
     dogs.Add(dog);
     return dog;
 });
