@@ -3,15 +3,11 @@ import { getCities, getWalkers, getFilteredCity, getWalkerCities } from "../../a
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-
-const walkers = await getWalkers();
-const cities = await getCities();
-// const filteredCity = await getFilteredCity();
-
 export const Walkers = () => {
     const [walkers, setWalkers] = useState([])
     const [cities, setCities] = useState([])
-    const [filtered, setFiltered] = useState([])
+    const [filteredWalkers, setFilteredWalkers] = useState([])
+    const [filteredCity, setFilteredCity] = useState("");
     // const { cityId } = useParams()
 
     const getAllWalkers = async () => {
@@ -24,21 +20,28 @@ export const Walkers = () => {
         setCities(fetchedCities)
     }
 
-    // const getFilteredCity = async () => {
-    //     const fetchFiltered = await getFilteredCity(parseInt(cityId))
-    //     setFiltered(fetchFiltered)
-    // }
+    const getFilteredCity = async () => {
+        const fetchFiltered = await getFilteredCity()
+        setFilteredCity(fetchFiltered)
+    }
 
     useEffect(() => {
         getAllWalkers()
         getAllCities()
-        getFilteredCity()
     }, [])
 
+    useEffect(
+        () => {
+            setFilteredCity(cities)
+        },
+        [cities]
+    )
+
     const handleSelectChange = (evt) => {
-        getFilteredCity(evt.target.value)
+        setFilteredCity(evt.target.value)
+        getWalkerCities(evt.target.value)
             .then((data) => {
-                setFiltered(data.walkers)
+                setFilteredWalkers(data)
             })
     }
 
@@ -46,17 +49,22 @@ export const Walkers = () => {
         <>
             {/* filter by city */}
             <div className="filterCity">
-                <select id="FilterCity" onChange={(evt) => handleSelectChange(evt)}>
-                    <option value="0">Filter by city</option>
+                <select id="FilterCity" value={filteredCity} onChange={(evt) => handleSelectChange(evt)}>
+                    <option value={"0"}>Filter by city</option>
                     {
                         cities.map((city) => {
                             return (
-                                <option value={`${city.id}`} key={`city--${city.id}`}>{city.name}</option>
+                                <option value={city.id} key={`city--${city.id}`}>{city.name}</option>
                             )
                         })
                     }
                 </select>
             </div>
+            {
+                filteredCity ? filteredWalkers.map((walker) => {
+                    return <h3 className="walker" key={`walker--${walker.id}`}>{walker.name}</h3>
+                }) : ""
+            }
 
             {/* list of walkers */}
             <div className="allWalkers">
