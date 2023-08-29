@@ -24,13 +24,6 @@ export const Walkers = () => {
             })
     }, []);
 
-    // useEffect(
-    //     () => {
-    //         setFilteredCity(cities)
-    //     },
-    //     [cities]
-    // )
-
     const handleSelectChange = (evt) => {
         setFilteredCity(evt.target.value)
         taco(evt.target.value)
@@ -38,6 +31,7 @@ export const Walkers = () => {
 
     const taco = (cityId) => {
         let filteredWalkerCities = []
+        // could use .filter method here
         walkerCities.map((wc) => {
             if (wc.cityId == cityId) {
                 filteredWalkerCities.push(wc)
