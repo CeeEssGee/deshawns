@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { getCities, getWalkers, getFilteredCity, getWalkerCities } from "../../apiManager";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 export const Walkers = () => {
     const [walkers, setWalkers] = useState([])
     const [cities, setCities] = useState([])
     const [filteredWalkers, setFilteredWalkers] = useState([])
     const [filteredCity, setFilteredCity] = useState("");
-    // const { cityId } = useParams()
 
     const getAllWalkers = async () => {
         const fetchedWalkers = await getWalkers()
