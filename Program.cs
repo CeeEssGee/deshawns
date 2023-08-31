@@ -283,6 +283,14 @@ app.MapGet("/api/walkers", () =>
     return walkers;
 });
 
+// single walker
+app.MapGet("/api/walker/{id}", (int id) =>
+{
+    Walker walker = walkers.FirstOrDefault(w => w.Id == id);
+
+    return Results.Ok(walker);
+});
+
 // WalkerCities
 app.MapGet("/api/walkercities", () =>
 {

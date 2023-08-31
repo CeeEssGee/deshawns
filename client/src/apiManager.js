@@ -58,3 +58,9 @@ export const getWalkers = async () => {
   const res = await fetch(`/api/walkers`);
   return res.json();
 };
+
+export const getSingleWalker = async (id) => {
+  const res = await fetch(`/api/walkers/${id}`);
+  return res.json();
+}
+

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getCities, getWalkers, getFilteredCity, getWalkerCities } from "../../apiManager";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export const Walkers = () => {
     const [walkers, setWalkers] = useState([])
@@ -51,7 +52,7 @@ export const Walkers = () => {
     return (
         <>
             {/* filter by city */}
-            <div className="filterCity">
+            <div>
                 <select id="FilterCity" value={filteredCity} onChange={(evt) => handleSelectChange(evt)}>
                     <option value={"0"}>Filter by city</option>
                     {
@@ -70,7 +71,7 @@ export const Walkers = () => {
                     <h2 className="heading allWalkers-heading">Walkers:</h2>
                     <div className="container allWalkers-container">
                         {walkers.map((walker) => {
-                            return <h3 className="walker" key={`walker--${walker.id}`}>{walker.name}
+                            return <h3 className="walker" key={`walker--${walker.id}`}><Link to={`/walkersedit/${walker.id}`}>{walker.name}</Link>
                             </h3>
                         })}
                     </div>
