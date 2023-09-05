@@ -1,7 +1,5 @@
 using DeshawnsAPI.Models;
 
-var builder = WebApplication.CreateBuilder(args);
-
 List<City> cities = new List<City>()
 {
     new City()
@@ -258,6 +256,8 @@ List<WalkerCity> walkerCities = new List<WalkerCity>()
     }
 };
 
+var builder = WebApplication.CreateBuilder(args);
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -359,14 +359,6 @@ app.MapPost("/api/cities", (City city) =>
 app.MapGet("/api/walkers", () =>
 {
     return walkers;
-});
-
-// single walker
-app.MapGet("/api/walker/{id}", (int id) =>
-{
-    Walker walker = walkers.FirstOrDefault(w => w.Id == id);
-
-    return Results.Ok(walker);
 });
 
 // walkers by city name

@@ -7,8 +7,10 @@ import reportWebVitals from "./reportWebVitals";
 import Home from "./Home";
 import { DogForm } from "./scripts/Dogs/DogForm";
 import { DogDetails } from "./scripts/Dogs/DogDetails";
-import { Walkers } from "./scripts/Walkers/Walkers";
-import { AddDog } from "./scripts/Dogs/AddDog";
+import { CityList } from "./scripts/Cities/CityList";
+import { WalkerList } from "./scripts/Walkers/WalkerList";
+import { WalkerDog } from "./scripts/Walkers/WalkerDog";
+import { WalkerDetails } from "./scripts/Walkers/WalkerDetails";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
