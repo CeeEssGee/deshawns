@@ -1,30 +1,25 @@
-import { useEffect, useState } from "react";
-import { getDogDetails } from "../../apiManager";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import { getDogDetails } from "../../apiManager"
 
 export const DogDetails = () => {
     const { dogId } = useParams()
-    const [singleDog, setSingleDog] = useState({}) // returning a single object, so using curly braces instead of brackets
 
-    const getDetails = async () => {
-        const fetchedDog = await getDogDetails(parseInt(dogId))
-        setSingleDog(fetchedDog)
-    }
+    const [singleDog, setSingleDog] = useState({})
 
     useEffect(() => {
-        getDetails()
+        const getSingleDogDetails = async (dogId) => {
+            const fetchedDog = await getDogDetails(dogId)
+            setSingleDog(fetchedDog)
+        }
+        getSingleDogDetails(dogId)
     }, [])
 
-    return (
-        <>
-            <div className="dogDetails">
-                <h2 className="heading dogDetails-heading">Dog Details</h2>
-                <div className="container">
-                    <div>Name: {singleDog?.name}</div>
-                    <div>City: {singleDog?.city?.name}</div>
-                    <div>Walker: {singleDog?.walker?.name}</div>
-                </div>
-            </div>
-        </>
-    )
+    return <section className="dog" key={`dog--${singleDog.id}`}>
+        <div>
+            <p>Dog: {singleDog?.name}</p>
+            <p>City: {singleDog?.city?.name}</p>
+            <p>Walker: {singleDog?.walker?.name}</p>
+        </div>
+    </section>
 }
