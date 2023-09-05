@@ -324,7 +324,7 @@ app.MapGet("/api/availableDogs/{cityId}", (int cityId) =>
 });
 
 // delete a dog
-app.MapDelete("/api/dogs/{id}", (int id) =>
+app.MapDelete("/api/removeDog/{id}", (int id) =>
 {
     Dog dog = dogs.FirstOrDefault(d => d.Id == id);
     dogs.Remove(dog);
