@@ -1,7 +1,5 @@
 using DeshawnsAPI.Models;
 
-var builder = WebApplication.CreateBuilder(args);
-
 List<City> cities = new List<City>()
 {
     new City()
@@ -257,6 +255,8 @@ List<WalkerCity> walkerCities = new List<WalkerCity>()
         CityId = 7
     }
 };
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
