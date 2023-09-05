@@ -1,101 +1,106 @@
 export const getGreeting = async () => {
-  const res = await fetch(`/api/hello`);
-  return res.json();
+    const res = await fetch("/api/hello");
+    return res.json();
 };
 
-// get all dogs
 export const getDogs = async () => {
-  const res = await fetch(`/api/home`);
-  return res.json();
+    const res = await fetch("/api/dogs");
+    return res.json();
 };
 
-// get one dog's details
+export const getDog = async (id) => {
+    const res = await fetch(`/api/dogs/${id}`);
+    return res.json();
+}
+
 export const getDogDetails = async (id) => {
-  const res = await fetch(`/api/dogs/${id}`);
-  return res.json();
+    const res = await fetch(`/api/dogs/${id}`);
+    return res.json();
 };
 
-// add a dog with neighborhood
-export const postDog = async (dogObject) => {
-  const res = await fetch(`/api/dogs`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(dogObject)
-  })
+export const addDog = async (newDog) => {
+    await fetch("/api/dogs", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newDog)
+    })
 };
 
-// add a dog's walker - is this correct?
-export const updateDog = async (dog) => {
-  await fetch(`/api/updateDog/${dog.id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(dog)
-  });
-}
-// export const postDogWalker = async (dogId, dogObj) => {
-//   const res = await fetch(`/api/dogs/${dogId}`, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(dogObj)
-//   })
-// }
-
-// dogs by city
-export const dogsByCity = async (cityId) => {
-  const res = await fetch(`/api/DogsByCity/${cityId}`)
-  return res.json();
-}
-
-// delete a dog
-export const deleteDog = async (id) => {
-  await fetch(`/api/dogs/${id}`, {
-    method: 'DELETE',
-  })
-};
-
-// get all cities
 export const getCities = async () => {
-  const res = await fetch(`/api/cities`);
-  return res.json();
+    const res = await fetch("/api/cities");
+    return res.json();
 };
 
-// get 1 city by id
-export const getFilteredCity = async (id) => {
-  const res = await fetch(`/api/cities/${id}`);
-  return res.json();
+export const getCity = async (id) => {
+    const res = await fetch(`/api/cities/${id}`);
+    return res.json();
+};
+
+export const addCity = async (city) => {
+    await fetch("/api/cities", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(city)
+    });
+};
+
+export const getWalkers = async () => {
+    const res = await fetch(`/api/walkers`);
+    return res.json();
+};
+
+export const getWalker = async (id) => {
+    const res = await fetch(`/api/walker/${id}`);
+    return res.json();
+};
+
+export const getWalkersByCity = async (cityName) => {
+    const res = await fetch(`/api/walkers/${cityName}`);
+    return res.json();
+};
+
+export const getCitiesByWalkerId = async (walkerId) => {
+    const res = await fetch(`/api/walkerCities/${walkerId}`);
+    return res.json();
 }
 
-// post a new city
-export const postCity = async (cityObject) => {
-  await fetch(`/api/cities`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(cityObject)
-  });
-};
+export const getAvailableDogs = async (cityId) => {
+    const res = await fetch(`/api/availableDogs/${cityId}`)
+    return res.json();
+}
 
-// get walkerCities
-export const getWalkerCities = async () => {
-  const res = await fetch(`/api/walkercities`);
-  return res.json();
-};
+export const updateDog = async (dog) => {
+    await fetch(`/api/updateDog/${dog.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dog)
+    });
+}
 
-// get walkers
-export const getWalkers = async () => {
-  const res = await fetch(`/api/walkers`);
-  return res.json();
-};
+export const removeDog = async (dogId) => {
+    await fetch(`/api/removeDog/${dogId}`, {
+        method: "DELETE"
+    })
+}
 
-// get walker city list by walkerId
-// export const getWalkerCityListByWalkerId = async (walkerId) => {
-//   const res = await fetch(`/api/walkerCities/${walkerId}`);
-//   return res.json();
-// }
+export const removeWalker = async (walkerId) => {
+    await fetch(`/api/removeWalker/${walkerId}`, {
+        method: "DELETE"
+    })
+}
+
+export const updateWalker = async (walker) => {
+    await fetch(`/api/updateWalker/${walker.Id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(walker)
+    });
+}

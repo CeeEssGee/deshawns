@@ -5,11 +5,12 @@ import App from "./App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import Home from "./Home";
-import { Cities } from "./scripts/Cities/Cities";
+import { DogForm } from "./scripts/Dogs/DogForm";
 import { DogDetails } from "./scripts/Dogs/DogDetails";
-import { Walkers } from "./scripts/Walkers/Walkers";
-import { AddDog } from "./scripts/Dogs/AddDog";
-import { WalkerAssignment } from "./scripts/Walkers/WalkerAssignment";
+import { CityList } from "./scripts/Cities/CityList";
+import { WalkerList } from "./scripts/Walkers/WalkerList";
+import { WalkerDog } from "./scripts/Walkers/WalkerDog";
+import { WalkerDetails } from "./scripts/Walkers/WalkerDetails";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,12 +18,12 @@ root.render(
     <Routes>
       <Route path="/" element={<App />}>
         <Route index element={<Home />} />
-        <Route path="/cities" element={<Cities />} />
+        <Route path="/cities" element={<CityList />} />
+        <Route path="/walkers" element={<WalkerList />} />
+        <Route path="/walkers/:walkerId" element={<WalkerDog />} />
+        <Route path="/addDog" element={<DogForm />} />
         <Route path="/dogs/:dogId" element={<DogDetails />} />
-        <Route path="/walkers" element={<Walkers />} />
-        <Route path="/walkers/:walkerId" element={<WalkerAssignment />} />
-        <Route path="/dogs/add" element={<AddDog />} />
-
+        <Route path="/walker/:walkerId" element={<WalkerDetails />} />
       </Route>
     </Routes>
   </BrowserRouter>,
